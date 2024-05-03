@@ -19,9 +19,9 @@
        return $dbconn->quote($str);
     }
 
-    function sql_connect( $database=SQL_DB, $username=SQL_USER, $password=SQL_PASS ) {
+    function sql_connect($host=SQL_HOST, $database=SQL_DB, $username=SQL_USER, $password=SQL_PASS ) {
         global $dbconn;
-        DEBUG( D_FUNCTION, "sql_connect('$database', '$username', '\$password')" );
+        DEBUG( D_FUNCTION, "sql_connect('$host', '$database', '$username', '\$password')" );
 
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -29,7 +29,7 @@
         ];
 
         try {
-          $dbconn = new PDO( "mysql:host=".SQL_HOST.";dbname=$database", $username, $password, $options);
+          $dbconn = new PDO( "mysql:host=".$host.";dbname=$database", $username, $password, $options);
         } catch (\PDOException $e) {
           sql_die($e->getMessage());
         }
